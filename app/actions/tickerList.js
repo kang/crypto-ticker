@@ -17,24 +17,26 @@ export function getTickerList() {
         response => response.json(),
         error => console.log('An error occurred.', error)
       )
-      .then(async (data) => {
-        const tickerList = await global.db.tickerList.find({});
+      .then((data) => (
+        // get all tickers from db
+        global.db.tickerList.find({}, (err, doc) => {
+          // create new array by merging old records with new
+          const newTickerList = data.map(ticker => {
+            const found = doc.find(item => item.id === ticker.id);
 
-        const newTickerList = data.map(ticker => {
-          const found = tickerList.find(item => item.id === ticker.id);
+            return found ? Object.assign({}, found, ticker) : ticker;
+          }).sort((a, b) => (
+            +(a.rank) > +(b.rank)
+          ));
 
-          return found ? Object.assign({}, found, ticker) : ticker;
-        }).sort((a, b) => (
-          +(a.rank) > +(b.rank)
-        ));
+          global.db.tickerList.remove({}, { multi: true }, () => {
+            global.db.tickerList.insert(newTickerList);
 
-        await global.db.tickerList.remove({}, { multi: true });
-
-        const retrievedTickerList = await global.db.tickerList.insert(newTickerList);
-
-        return dispatch(gotTickerList(retrievedTickerList));
-      })
-  );
+            return dispatch(gotTickerList(newTickerList));
+          });
+        })
+      ))
+    );
 }
 
 export function gotTickerList(tickerList: tickerListStateType) {

@@ -17,14 +17,12 @@ class TickerList extends Component {
   tickerFetch: null;
 
   componentDidMount() {
-    console.log('hello');
     this.tickerFetcher = window.setInterval(() => {
       this.props.getTickerList();
     }, 5000);
   }
 
   componentWillUnmount() {
-    console.log('bye');
     clearInterval(this.tickerFetcher);
   }
 

@@ -1,7 +1,11 @@
-import Datastore from 'nedb-promise';
+import Datastore from 'nedb';
+import { remote } from 'electron';
 
 global.db = {
-  tickerList: new Datastore({ filename: './testdbfile.db', autoload: true })
+  tickerList: new Datastore({
+    filename: remote.app.getAppPath('appData') + './cryptoTicker.db',
+    autoload: true
+  })
 };
 
 global.db.tickerList.ensureIndex({ fieldName: 'id', unique: true });

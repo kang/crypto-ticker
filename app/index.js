@@ -6,7 +6,7 @@ import { configureStore, history } from './store/configureStore';
 import './app.global.css';
 import './global';
 
-global.db.tickerList.find({}).then(doc => {
+global.db.tickerList.find({}).exec((err, doc) => {
   const sortedTickerList = doc.sort((a, b) => (
     +(a.rank) > +(b.rank)
   ));

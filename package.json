@@ -186,10 +186,13 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "cross-fetch": "^1.1.1",
     "devtron": "^1.4.0",
     "electron-debug": "^1.2.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
+    "nedb": "^1.8.0",
+    "nedb-promise": "^2.0.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-hot-loader": "3.0.0-beta.6",

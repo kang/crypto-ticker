@@ -12,7 +12,7 @@ export const TOGGLE_TICKER = 'TOGGLE_TICKER';
 
 export function getTickerList() {
   return (dispatch: (action: actionType) => void) => (
-    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=5')
+    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=100')
       .then(
         response => response.json(),
         error => console.log('An error occurred.', error)
@@ -25,9 +25,7 @@ export function getTickerList() {
             const found = doc.find(item => item.id === ticker.id);
 
             return found ? Object.assign({}, found, ticker) : ticker;
-          }).sort((a, b) => (
-            +(a.rank) > +(b.rank)
-          ));
+          });
 
           global.db.tickerList.remove({}, { multi: true }, () => {
             global.db.tickerList.insert(newTickerList);

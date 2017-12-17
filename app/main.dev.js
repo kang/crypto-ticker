@@ -10,8 +10,9 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import MenuBuilder from './menu';
+import TrayBuilder from './tray';
 
 let mainWindow = null;
 
@@ -59,10 +60,13 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
+  app.dock.hide();
+
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728
+    width: 565,
+    height: 100,
+    frame: false
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -77,9 +81,18 @@ app.on('ready', async () => {
     mainWindow.focus();
   });
 
+  ipcMain.on('resize', (event, height) => {
+    mainWindow.setSize(565, height, true);
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  let tray = {};
+
+  const trayBuilder = new TrayBuilder(tray, mainWindow);
+  trayBuilder.buildTray();
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();

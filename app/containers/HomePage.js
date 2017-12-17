@@ -1,11 +1,17 @@
 // @flow
-import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Home from '../components/Home';
+import { getTickerList } from '../actions/tickerList';
 
-export default class HomePage extends Component {
-  render() {
-    return (
-      <Home />
-    );
-  }
+function mapStateToProps(state) {
+  return {
+    selectedTickerList: state.selectedTickerList
+  };
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getTickerList }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -8,7 +8,7 @@ import TickerListPage from './containers/TickerListPage';
 export default () => (
   <App>
     <Switch>
-      <Route path="/ticker-list" component={TickerListPage} />
+      <Route path="/settings" component={TickerListPage} />
       <Route path="/" component={HomePage} />
     </Switch>
   </App>

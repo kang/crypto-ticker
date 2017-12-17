@@ -1,18 +1,36 @@
 .container {
-  margin-top: 30px;
+  height: 100vh;
+  position: relative;
   text-align: center;
 }
 
 .container h2 {
-  font-size: 5rem;
+  font-size: 3rem;
+  margin-top: 4px;
 }
 
 .container a {
   font-size: 1.4rem;
 }
 
+.grid-container {
+  display: grid;
+  grid-gap: 50px;
+  grid-template-columns: repeat(6, 1fr);
+  height: 80vh;
+  position: absolute;
+}
+
+.filter-input {
+  grid-column: 2 / 3;
+  height: 30px;
+  margin-top: 30px;
+}
+
 .backButton {
   position: absolute;
+  z-index: 10000;
+  margin: 8px;
 }
 
 .selected {
@@ -21,7 +39,8 @@
 }
 
 .list-container {
-  margin-top: 30px;
-  max-height: 500px;
+  grid-column-start: 3;
+  grid-column-end: 6;
+  margin: 27px 0;
   overflow: auto;
 }

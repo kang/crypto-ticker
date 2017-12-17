@@ -1,8 +1,8 @@
 .container {
-  position: absolute;
-  top: 30%;
-  left: 10px;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .container h2 {
@@ -11,4 +11,16 @@
 
 .container a {
   font-size: 1.4rem;
+}
+
+.settings {
+  position: absolute;
+  margin: 8px;
+}
+
+.ticker {
+  height: 100px;
+  line-height: 100px;
+  letter-spacing: 0.05em;
+  width: 30%;
 }
